@@ -1,0 +1,120 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/OpenSans-ExtraBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://game_over_ui/game_over_ui.gd" type="Script" id=3]
+[ext_resource path="res://Doodle-jump/bck.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.482353, 0.482353, 0.709804, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.564706, 0.564706, 0.847059, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 4
+extra_spacing_space = 6
+font_data = ExtResource( 2 )
+
+[node name="game_over_ui" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="background_back" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.333333, 0.333333, 0.376471, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 0.384314, 0.396078, 0.431373, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="background_top" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -110.0
+margin_top = -73.0
+margin_right = 106.0
+margin_bottom = 77.0
+size_flags_horizontal = 3
+color = Color( 0.203922, 0.184314, 0.290196, 1 )
+
+[node name="button_container" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -102.0
+margin_top = 31.0
+margin_right = 99.0
+margin_bottom = 63.0
+custom_constants/separation = 30
+
+[node name="quit_btn" type="Button" parent="button_container"]
+margin_right = 85.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
+text = "QUIT"
+
+[node name="restart_btn" type="Button" parent="button_container"]
+margin_left = 115.0
+margin_right = 201.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
+text = "RESTART"
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -85.0
+margin_top = -35.0
+margin_right = 84.0
+margin_bottom = -1.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "GAME OVER"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="button_container/quit_btn" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="button_container/restart_btn" to="." method="_on_restart_pressed"]
