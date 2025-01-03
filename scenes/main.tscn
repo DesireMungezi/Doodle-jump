@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/paddle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/main.gd" type="Script" id=3]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://Doodle-jump/bck.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 199.25, 20.25 )
+
+[node name="main" type="Node2D"]
+script = ExtResource( 3 )
+total_platform_number = 100
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 214, 41 )
+gravity_scale = 6.0
+camera_path = NodePath("../Camera2D")
+
+[node name="paddles" type="Node2D" parent="."]
+
+[node name="paddle" parent="paddles" instance=ExtResource( 2 )]
+position = Vector2( 206, 101 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 200, 300 )
+current = true
+script = ExtResource( 4 )
+player_path = NodePath("../player")
+
+[node name="platform_deleter" type="Area2D" parent="Camera2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/platform_deleter"]
+position = Vector2( 1, 331 )
+shape = SubResource( 1 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 0, 600 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 1.25, 1.17578 )
+texture = ExtResource( 5 )
+centered = false
+
+[connection signal="body_entered" from="Camera2D/platform_deleter" to="." method="_on_platform_deleter_body_entered"]
